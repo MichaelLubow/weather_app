@@ -76,12 +76,56 @@ body {
     max-width: 1400px;
     width: 80%;
     height: 80%;
-    background-color: rgba(255, 255, 255, 0.3);
+    //background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     .imageContainer{
       @include span-columns(12);
       height: 75%;
       background-image: url('/img/sky-sunny-clouds-cloudy.jpg');
       background-size: cover;
+      position: relative;
+      .weatherRetriever{
+        position: absolute;
+        right: 297px;
+        top: 35px;
+        background-color: rgba(0, 0, 0, 0.3);
+        width: 53px;
+        height: 47px;
+        border: none;
+        border-right: 2px solid #ccc;
+        outline: none;
+        font-size: 1.8em;
+      }
+      //typeahead overrides
+      .twitter-typeahead {
+        width: 100% !important;
+        .tt-hint {
+          left: auto !important;
+          right: 0 !important;
+        }
+
+        .tt-input {
+          position: absolute !important;
+          right: 0 !important;
+        }
+        .tt-menu{
+          @include span-columns(3.1 of 12);
+          right: 0 !important;
+          top: 67px !important;
+          left: auto !important;
+          background-color: rgba(0, 0, 0, 0.4);
+          border-top: 1px solid white;
+          margin-right: 20px !important;
+        }
+        .tt-suggestion{
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 10px;
+        }
+      }
+
+
+
       .locationName{
         @include span-columns(3.1 of 12);
         float: right;
@@ -96,27 +140,59 @@ body {
         color: white;
         outline: none;
       }
+      .currentConditions{
+        position: absolute;
+        bottom: 0;
+        left: 4%;
+        .tempContainer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: -20px;
+          .temp {
+            font-size: 12em;
+            float: left;
+          }
+          .icon {
+            float: left;
+            font-size: 8em;
+            margin-top: 15px;
+            i.wi-day-sunny{
+              color: #FFF782;
+            }
+          }
+        }
+        .date{
+          text-align: center;
+          font-size: 20px;
+          margin-bottom: 15px;
+        }
+      }
     }
     .weatherInfo{
       @include span-columns(12);
       height: 25%;
       padding: 15px;
-      .currentConditions{
-        @include span-columns(3 of 12);
-        height: 100%;
-        .temp{
-          font-size: 60px;
-        }
-      }
+      //.currentConditions{
+      //  @include span-columns(3 of 12);
+      //  height: 100%;
+      //  .temp{
+      //    font-size: 60px;
+      //  }
+      //}
       .forecast{
-        @include span-columns(9 of 12);
+        @include span-columns(12 of 12);
         height: 100%;
         .dayForecast{
           @include span-columns(2.4 of 12);
-          @include omega();
+          // @include omega();
           height: 100%;
           text-align: center;
-          border-left: 1px solid white;
+          //border-left: 1px solid white;
+          &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+          }
           .day{
 
           }

@@ -9,14 +9,20 @@
 <body>
 <div class="container">
   <div class="imageContainer">
-    <!--<input class="typeahead" type="text" />-->
-    <!--<button class="weatherRetriever">Get Weather!</button>-->
-    <input type="text" class="locationName" placeholder="Location" value="New York, NY"/>
+    <input type="text" class="locationName typeahead" placeholder="Location" value="New York, NY"/>
+    <button class="weatherRetriever"><i class="fa fa-search"></i></button>
+    <div class="currentConditions">
+      <div class="tempContainer">
+        <div class="temp">85&deg;</div>
+        <div class="icon"><i class="wi wi-day-sunny"></i></div>
+      </div>
+      <div class="date">Friday, April 29th</div>
+    </div>
   </div>
   <div class="weatherInfo">
-    <div class="currentConditions">
-      <div class="temp">85&deg;</div>
-    </div>
+    <!--<div class="currentConditions">-->
+      <!--<div class="temp">85&deg;</div>-->
+    <!--</div>-->
     <div class="forecast">
       <div class="dayForecast">
         <div class="day">Monday</div>
@@ -47,6 +53,7 @@
 </div>
 <script src="/client/src/js/jquery-2.2.0.min.js"></script>
 <script src="/client/src/js/typeahead.bundle.min.js"></script>
+<script src="/client/src/js/city_data.js"></script>
 <script src="/client/src/js/main.js"></script>
 </body>
 </html>
