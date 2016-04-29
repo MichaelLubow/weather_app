@@ -1,0 +1,70 @@
+@import 'variables';
+@import 'app_globals';
+@import "custom_animations";
+@import "proximanova";
+
+*{
+  //transition: 1s all;
+  &.hidden{
+    display: none !important;
+  }
+  &.noTransition{
+    transition: none !important;
+  }
+  &.noAnimation{
+    animation: none !important;
+  }
+  &.userSelect{
+    -moz-user-select: all !important;
+    -webkit-user-select: all !important;
+    -ms-user-select: all !important;
+    user-select: all !important;
+  }
+  &.noUserSelect{
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+  }
+}
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html, body{
+  height: 100%;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+body:before {
+  content: "desktop";
+  display: none;
+  @media #{$mobile}{
+    content: "mobile";
+  }
+  @media #{$tabletSmall}{
+    content: "tabletSmall";
+  }
+  @media #{$tabletLargePortrait}{
+    content: "tabletLargePortrait";
+  }
+  @media #{$tabletLargeLandscape}{
+    content: "tabletLargeLandscape";
+  }
+  @media #{$tabletLarge}{
+    content: "tabletLarge";
+  }
+  @media #{$desktop}{
+    content: "desktop";
+  }
+}
+
+.container{
+  max-width: 1400px;
+  width: 100%;
+}

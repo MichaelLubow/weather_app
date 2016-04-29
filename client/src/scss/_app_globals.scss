@@ -1,0 +1,29 @@
+.desktopHidden {
+  @media #{$desktop}{
+    display: none !important;
+  }
+}
+
+.tabletLargeLandscapeHidden{
+  @media #{$tabletLargeLandscape}{
+    display: none !important;
+  }
+}
+
+.tabletLargePortraitHidden{
+  @media #{$tabletLargePortrait}{
+    display: none !important;
+  }
+}
+
+.tabletSmallHidden{
+  @media #{$tabletSmall}{
+    display: none !important;
+  }
+}
+
+.mobileHidden{
+  @media #{$mobile}{
+    display: none !important;
+  }
+}
