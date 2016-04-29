@@ -2,6 +2,8 @@
 @import 'app_globals';
 @import "custom_animations";
 @import "proximanova";
+@import "bourbon";
+@import "neat";
 
 *{
   //transition: 1s all;
@@ -39,6 +41,7 @@ html, body{
   height: 100%;
   width: 100%;
   font-family: 'Roboto', sans-serif;
+  color: white;
 }
 
 body:before {
@@ -64,7 +67,69 @@ body:before {
   }
 }
 
-.container{
-  max-width: 1400px;
-  width: 100%;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at 2.02% 9.01%, #054552, transparent 100%),radial-gradient(circle at 98.13% 87.75%, #030633, transparent 100%),radial-gradient(circle at 69.93% 36.76%, #1fff87, transparent 53%),radial-gradient(circle at 20.49% 80.28%, #fafafa, transparent 100%),radial-gradient(circle at 97.57% 6.48%, rgba(255,255,255,0.5), transparent 100%),radial-gradient(circle at 50% 50%, #e86e79, #e86e79 100%);
+  .container {
+    max-width: 1400px;
+    width: 80%;
+    height: 80%;
+    background-color: rgba(255, 255, 255, 0.3);
+    .imageContainer{
+      @include span-columns(12);
+      height: 75%;
+      background-image: url('/img/sky-sunny-clouds-cloudy.jpg');
+      background-size: cover;
+      .locationName{
+        @include span-columns(3.1 of 12);
+        float: right;
+        font-size: 40px;
+        font-style: italic;
+        margin-top: 20px;
+        margin-right: 20px !important;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding-left: 10px;
+        padding-right: 10px;
+        border: none;
+        color: white;
+        outline: none;
+      }
+    }
+    .weatherInfo{
+      @include span-columns(12);
+      height: 25%;
+      padding: 15px;
+      .currentConditions{
+        @include span-columns(3 of 12);
+        height: 100%;
+        .temp{
+          font-size: 60px;
+        }
+      }
+      .forecast{
+        @include span-columns(9 of 12);
+        height: 100%;
+        .dayForecast{
+          @include span-columns(2.4 of 12);
+          @include omega();
+          height: 100%;
+          text-align: center;
+          border-left: 1px solid white;
+          .day{
+
+          }
+          .icon{
+            font-size: 2em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+          .temp{
+            font-size: 2em;
+          }
+        }
+      }
+    }
+  }
 }

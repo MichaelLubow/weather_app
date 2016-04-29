@@ -242,7 +242,7 @@ gulp.task(config.gulpTasks.compile.scss.app, function(){
 
 gulp.task(config.gulpTasks.compile.scss.vendor, function(){
     //compile vendor CSS files
-    compileSCSS(config.css.vendor + '/**/*.scss', config.css.dist);
+    compileSCSS(config.css.vendor + '/*.scss', config.css.dist);
 });
 
 gulp.task(config.gulpTasks.compile.scss.all, [config.gulpTasks.compile.scss.app, config.gulpTasks.compile.scss.vendor], function(){
