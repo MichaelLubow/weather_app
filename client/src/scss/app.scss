@@ -41,6 +41,7 @@ html, body{
   height: 100%;
   width: 100%;
   font-family: 'Roboto', sans-serif;
+  font-weight: 300;
   color: white;
 }
 
@@ -78,6 +79,7 @@ body {
     height: 80%;
     //background-color: rgba(255, 255, 255, 0.3);
     background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     .imageContainer{
       @include span-columns(12);
       height: 75%;
@@ -90,7 +92,7 @@ body {
         top: 35px;
         background-color: rgba(0, 0, 0, 0.3);
         width: 53px;
-        height: 47px;
+        height: 48px;
         border: none;
         border-right: 2px solid #ccc;
         outline: none;
@@ -129,7 +131,8 @@ body {
       .locationName{
         @include span-columns(3.1 of 12);
         float: right;
-        font-size: 40px;
+        font-size: 30px;
+        height: 48px;
         font-style: italic;
         margin-top: 20px;
         margin-right: 20px !important;
