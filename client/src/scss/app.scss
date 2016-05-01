@@ -83,9 +83,26 @@ body {
     .imageContainer{
       @include span-columns(12);
       height: 75%;
-      background-image: url('/img/sky-sunny-clouds-cloudy.jpg');
       background-size: cover;
       position: relative;
+      &.clear{
+        background-image: url('/img/clear.jpg');
+      }
+      &.cloudy{
+        background-image: url('/img/clouds.jpg');
+      }
+      &.rain{
+        background-image: url('/img/rain.jpg');
+      }
+      &.snow{
+        background-image: url('/img/snow.jpg');
+      }
+      &.fog{
+        background-image: url('/img/fog.jpg');
+      }
+      &.thunderstorms{
+        background-image: url('/img/thunderstorms.jpg');
+      }
       .weatherRetriever{
         position: absolute;
         right: 297px;

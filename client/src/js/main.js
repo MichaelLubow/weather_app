@@ -3,6 +3,7 @@ var main = (function(){
   var APP_ID = "6d9001586931106485b0a3b14315adc6";
   var unit = "imperial"; //or metric
   var $typeahead = null;
+  var $imageContainer = null;
   var $weatherRetriever = null;
   var $currentConditions = null;
   var $forecast = null;
@@ -11,6 +12,7 @@ var main = (function(){
 
   function cacheDOMSelectors(){
     $typeahead = $('.typeahead');
+    $imageContainer = document.querySelector('.imageContainer');
     $weatherRetriever = document.querySelector('.weatherRetriever');
     $currentConditions = document.querySelector('.currentConditions');
     $forecast = document.querySelector('.forecast');
@@ -65,11 +67,104 @@ var main = (function(){
   }
 
   function renderWeatherData(data){
+    var setBackgroundImage = function setBackgroundImage(weatherCode){
+      switch(weatherCode){
+        case 800:
+        case 904:
+        case 905:
+        case 957:
+          //clear
+          $imageContainer.className = "imageContainer";
+          $imageContainer.classList.add("clear");
+          break;
+        case 771:
+        case 801:
+        case 802:
+        case 803:
+        case 804:
+          //cloudy
+          $imageContainer.className = "imageContainer";
+          $imageContainer.classList.add("cloudy");
+          break;
+        case 300:
+        case 301:
+        case 302:
+        case 310:
+        case 311:
+        case 312:
+        case 313:
+        case 314:
+        case 321:
+        case 500:
+        case 501:
+        case 502:
+        case 503:
+        case 504:
+        case 511:
+        case 520:
+        case 521:
+        case 522:
+        case 531:
+        case 611:
+        case 612:
+        case 615:
+        case 616:
+        case 620:
+        case 701:
+        case 901:
+        case 902:
+          //rain
+          $imageContainer.className = "imageContainer";
+          $imageContainer.classList.add("rain");
+          break;
+        case 600:
+        case 601:
+        case 602:
+        case 621:
+        case 622:
+        case 903:
+        case 906:
+          //snow
+          $imageContainer.className = "imageContainer";
+          $imageContainer.classList.add("snow");
+          break;
+        case 711:
+        case 721:
+        case 731:
+        case 741:
+        case 761:
+        case 762:
+        case 781:
+        case 900:
+          //fog
+          $imageContainer.className = "imageContainer";
+          $imageContainer.classList.add("fog");
+          break;
+        case 200:
+        case 201:
+        case 202:
+        case 210:
+        case 211:
+        case 212:
+        case 221:
+        case 230:
+        case 231:
+        case 232:
+          //thunderstorms
+          $imageContainer.className = "imageContainer";
+          $imageContainer.classList.add("thunderstorms");
+          break;
+        default:
+          $imageContainer.className = "imageContainer";
+          $imageContainer.classList.add("clear");
+      }
+    };
     var $temp = $currentConditions.querySelector(".temp");
     $temp.innerHTML = Math.round(data.main.temp);
     var $icon = $currentConditions.querySelector('.icon>i');
     $icon.className = "wi"; //reset the classes
     $icon.classList.add("wi-owm-" + data.weather[0].id);
+    setBackgroundImage(data.weather[0].id);
   }
 
   function renderForecastData(data){
