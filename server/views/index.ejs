@@ -14,47 +14,27 @@
     <button class="weatherRetriever"><i class="fa fa-search"></i></button>
     <div class="currentConditions">
       <div class="tempContainer">
-        <div class="temp">85&deg;</div>
-        <div class="icon"><i class="wi wi-day-sunny"></i></div>
+        <div class="temp">-</div>
+        <div class="icon"><i class="wi"></i></div>
       </div>
       <div class="date"></div>
     </div>
   </div>
   <div class="weatherInfo">
-    <!--<div class="currentConditions">-->
-      <!--<div class="temp">85&deg;</div>-->
-    <!--</div>-->
-    <div class="forecast">
-      <div class="dayForecast">
-        <div class="day">Monday</div>
-        <div class="icon"><i class="wi wi-day-sunny"></i></div>
-        <div class="temp">65&deg;</div>
-      </div>
-      <div class="dayForecast">
-        <div class="day">Tuesday</div>
-        <div class="icon"><i class="wi wi-day-cloudy"></i></div>
-        <div class="temp">65&deg;</div>      </div>
-      <div class="dayForecast">
-        <div class="day">Wednesday</div>
-        <div class="icon"><i class="wi wi-day-rain"></i></div>
-        <div class="temp">65&deg;</div>      </div>
-      <div class="dayForecast">
-        <div class="day">Thursday</div>
-        <div class="icon"><i class="wi wi-day-showers"></i></div>
-        <div class="temp">65&deg;</div>
-      </div>
-      <div class="dayForecast">
-        <div class="day">Friday</div>
-        <div class="icon"><i class="wi wi-day-sunny-overcast"></i></div>
-        <div class="temp">65&deg;</div>
-      </div>
-    </div>
+    <div class="forecast"></div>
   </div>
-
 </div>
+<template id="dayForecastTemplate">
+  <div class="dayForecast">
+    <div class="day"></div>
+    <div class="icon"><i class="wi"></i></div>
+    <div class="temp"><span class="max"></span><span class="divider">/</span><span class="min"></span></div>
+  </div>
+</template>
 <script src="/client/src/js/jquery-2.2.0.min.js"></script>
 <script src="/client/src/js/typeahead.bundle.min.js"></script>
 <script src="/client/src/js/city_data.js"></script>
+<script src="/client/src/js/constants.js"></script>
 <script src="/client/src/js/main.js"></script>
 </body>
 </html>

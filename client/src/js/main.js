@@ -4,10 +4,14 @@ var main = (function(){
   var unit = "imperial"; //or metric
   var $typeahead = null;
   var $weatherRetriever = null;
+  var $currentConditions = null;
+  var $forecast = null;
 
   function cacheDOMSelectors(){
     $typeahead = $('.typeahead');
-    $weatherRetriever = $('.weatherRetriever');
+    $weatherRetriever = document.querySelector('.weatherRetriever');
+    $currentConditions = document.querySelector('.currentConditions');
+    $forecast = document.querySelector('.forecast');
   }
 
   function findUserWithGeolocation(){
@@ -22,59 +26,31 @@ var main = (function(){
   }
 
   function setCurrentDate(){
-    var $currentConditions = document.querySelector('.currentConditions');
     var $date = $currentConditions.querySelector('.date');
     console.log("$date is ", $date);
 
     var formatDate = function(date){
-      var monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-      ];
-
-      var days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ];
-
-      var ordinalIndicatorArr = ['st', 'nd', 'rd', 'th'];
-
       var dayOfWeekIndex = date.getDay();
-      var dayOfWeek = days[dayOfWeekIndex];
+      var dayOfWeek = weatherApp.DAYS[dayOfWeekIndex];
       var day = date.getDate();
 
       var lastDigit = (day + "").substr(-1, 1);
 
       var ordinalIndicator = null;
       if(lastDigit === "1"){
-        ordinalIndicator = ordinalIndicatorArr[0];
+        ordinalIndicator = weatherApp.ORDINAL_INDICATOR_ARR[0];
       }
       else if(lastDigit === "2"){
-        ordinalIndicator = ordinalIndicatorArr[1];
+        ordinalIndicator = weatherApp.ORDINAL_INDICATOR_ARR[1];
       }
       else if(lastDigit === "3"){
-        ordinalIndicator = ordinalIndicatorArr[2];
+        ordinalIndicator = weatherApp.ORDINAL_INDICATOR_ARR[2];
       }
       else{
-        ordinalIndicator = ordinalIndicatorArr[3];
+        ordinalIndicator = weatherApp.ORDINAL_INDICATOR_ARR[3];
       }
       var monthIndex = date.getMonth();
-      return dayOfWeek + " " + monthNames[monthIndex] + ", " + day + ordinalIndicator;
+      return dayOfWeek + " " + weatherApp.MONTH_NAMES[monthIndex] + ", " + day + ordinalIndicator;
     };
 
     var date = formatDate(new Date());
@@ -82,24 +58,124 @@ var main = (function(){
     $date.innerHTML = date;
   }
 
+  function renderWeatherData(data){
+    var $temp = $currentConditions.querySelector(".temp");
+    $temp.innerHTML = Math.round(data.main.temp);
+    var $icon = $currentConditions.querySelector('.icon>i');
+    $icon.className = "wi"; //reset the classes
+    $icon.classList.add("wi-owm-" + data.weather[0].id);
+  }
+
+  function renderForecastData(data){
+    var $dayForecastTemplate = document.getElementById('dayForecastTemplate');
+    console.log($dayForecastTemplate.content);
+    data.forEach(function(dayForecast){
+      $dayForecastTemplate.content.querySelector('.day').textContent = dayForecast.date;
+      var $icon = $dayForecastTemplate.content.querySelector('.icon>i');
+      $icon.className = "wi"; //reset the classes
+      $icon.classList.add("wi-owm-" + dayForecast.weatherIcon);
+      $dayForecastTemplate.content.querySelector('.max').textContent = Math.round(dayForecast.max);
+      $dayForecastTemplate.content.querySelector('.min').textContent = Math.round(dayForecast.min);
+      var clone = document.importNode($dayForecastTemplate.content, true);
+      $forecast.appendChild(clone);
+    });
+  }
+
   function populateWeatherInformation(location){
-    var url = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=" + unit + "&APPID=" + APP_ID;
-    $.ajax({
-        type: 'POST',
-        url: url,
-        cache: false,
-        contentType: false,
-        processData: false
-      })
-      .done(function(data) {
-        console.log("success data is ", data);
-      })
-      .fail(function(error) {
-        console.log("error is ", error);
-      })
-      .always(function() {
-        console.log("complete");
-      });
+    var getCurrentWeather = function getCurrentWeather(){
+      var url = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=" + unit + "&APPID=" + APP_ID;
+      $.ajax({
+          type: 'POST',
+          url: url,
+          cache: false,
+          contentType: false,
+          processData: false
+        })
+        .done(function(data) {
+          console.log("success current weather data is ", data);
+          renderWeatherData(data);
+        })
+        .fail(function(error) {
+          console.log("error is ", error);
+        })
+        .always(function() {
+          console.log("complete");
+        });
+    };
+
+    var getForecast = function getForecast(){
+      var url = "http://api.openweathermap.org/data/2.5/forecast?q=" + location + "&units=" + unit + "&APPID=" + APP_ID;
+      $.ajax({
+          type: 'POST',
+          url: url,
+          cache: false,
+          contentType: false,
+          processData: false
+        })
+        .done(function(data) {
+          console.log("success forecast data is ", data);
+          var summaryForecastData = [];
+          var forecast = {};
+          var currentDate = null;
+          var weatherReadingDate = null;
+          var weatherIconHourReading = null;
+          var todayDate = new Date().getDate();
+
+          data.list.forEach(function(weatherReading) {
+            weatherReadingDate = new Date(weatherReading.dt_txt);
+            var date = weatherReadingDate.getDate();
+            console.log("date is ", date);
+
+            if(date !== todayDate) {
+              if (!currentDate) {
+                currentDate = date;
+                forecast.min = weatherReading.main.temp;
+                forecast.max = weatherReading.main.temp;
+                forecast.date = weatherApp.DAYS[weatherReadingDate.getDay()];
+                weatherIconHourReading = weatherReadingDate.getHours() + 1;
+                forecast.weatherIcon = weatherReading.weather[0].id;
+              }
+              else if (currentDate === date) {
+                if (weatherReading.main.temp < forecast.min) {
+                  forecast.min = weatherReading.main.temp;
+                }
+                else if (weatherReading.main.temp > forecast.min) {
+                  forecast.max = weatherReading.main.temp;
+                }
+                if (weatherIconHourReading < 12 && weatherReadingDate.getHours() <= 12) {
+                  console.log('weatherIconHourReading is ', weatherIconHourReading);
+                  console.log('weatherReadingDate.getHours() + 1 is ', weatherReadingDate.getHours());
+                  forecast.weatherIcon = weatherReading.weather[0].id;
+                }
+              }
+              else {
+                summaryForecastData.push(forecast);
+                currentDate = date;
+                forecast = {};
+                forecast.min = weatherReading.main.temp;
+                forecast.max = weatherReading.main.temp;
+                forecast.date = weatherApp.DAYS[weatherReadingDate.getDay()];
+                weatherIconHourReading = weatherReadingDate.getHours();
+                forecast.weatherIcon = weatherReading.weather[0].id;
+              }
+            }
+          });
+
+          //push the last entry
+          summaryForecastData.push(forecast);
+          console.log("summaryForecastData is ", summaryForecastData);
+          renderForecastData(summaryForecastData);
+        })
+        .fail(function(error) {
+          console.log("error is ", error);
+        })
+        .always(function() {
+          console.log("complete");
+        });
+    };
+
+    getCurrentWeather();
+    getForecast();
   }
 
   return {
@@ -149,14 +225,17 @@ var main = (function(){
         }
       );
 
-      $weatherRetriever.on('click', function(){
+      $weatherRetriever.addEventListener('click', function(){
 
+        populateWeatherInformation();
       });
     }
   };
 
 })();
 
-$(function(){
+
+window.addEventListener('DOMContentLoaded', function(){
   main.init();
 });
+
