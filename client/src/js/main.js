@@ -6,22 +6,28 @@ var main = (function(){
   var $weatherRetriever = null;
   var $currentConditions = null;
   var $forecast = null;
+  var $geoLocationContainer = null;
+  var $userGeolocation = null;
 
   function cacheDOMSelectors(){
     $typeahead = $('.typeahead');
     $weatherRetriever = document.querySelector('.weatherRetriever');
     $currentConditions = document.querySelector('.currentConditions');
     $forecast = document.querySelector('.forecast');
+    $geoLocationContainer = document.querySelector('.geoLocationContainer');
+    $userGeolocation = document.querySelector('.userGeolocation');
   }
 
   function findUserWithGeolocation(){
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function(position) {
         console.log("position is ", position);
+        populateWeatherInformation({latitude: position.coords.latitude, longitude: position.coords.longitude});
       });
     }
     else {
       console.log("geolocation IS NOT available");
+      populateWeatherInformation({cityName: "New York, NY"});
     }
   }
 
@@ -69,6 +75,10 @@ var main = (function(){
   function renderForecastData(data){
     var $dayForecastTemplate = document.getElementById('dayForecastTemplate');
     console.log($dayForecastTemplate.content);
+    //remove previous results
+    while ($forecast.firstChild) {
+      $forecast.removeChild($forecast.firstChild);
+    }
     data.forEach(function(dayForecast){
       $dayForecastTemplate.content.querySelector('.day').textContent = dayForecast.date;
       var $icon = $dayForecastTemplate.content.querySelector('.icon>i');
@@ -83,7 +93,16 @@ var main = (function(){
 
   function populateWeatherInformation(location){
     var getCurrentWeather = function getCurrentWeather(){
-      var url = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=" + unit + "&APPID=" + APP_ID;
+      var url = null;
+      if(location.cityName) {
+        url = "http://api.openweathermap.org/data/2.5/weather?q=" + location.cityName + "&units=" + unit + "&APPID=" + APP_ID;
+      }
+      else if(location.latitude && location.longitude){
+        url = "http://api.openweathermap.org/data/2.5/weather?lat=" + location.latitude + "&lon=" + location.longitude +  "&units=" + unit + "&APPID=" + APP_ID;
+      }
+      else{
+        throw {name: "LocationNotDefinedError", message: "You did not specify a valid location"};
+      }
       $.ajax({
           type: 'POST',
           url: url,
@@ -104,7 +123,16 @@ var main = (function(){
     };
 
     var getForecast = function getForecast(){
-      var url = "http://api.openweathermap.org/data/2.5/forecast?q=" + location + "&units=" + unit + "&APPID=" + APP_ID;
+      var url = null;
+      if(location.cityName) {
+        url = "http://api.openweathermap.org/data/2.5/forecast?q=" + location.cityName + "&units=" + unit + "&APPID=" + APP_ID;
+      }
+      else if(location.latitude && location.longitude){
+        url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + location.latitude + "&lon=" + location.longitude +  "&units=" + unit + "&APPID=" + APP_ID;
+      }
+      else{
+        throw {name: "LocationNotDefinedError", message: "You did not specify a valid location"};
+      }
       $.ajax({
           type: 'POST',
           url: url,
@@ -183,9 +211,8 @@ var main = (function(){
       console.log("main init");
       cacheDOMSelectors();
       console.log("weatherApp is ", weatherApp);
-      findUserWithGeolocation();
       setCurrentDate();
-      populateWeatherInformation("New York, NY");
+      populateWeatherInformation({cityName: "New York, NY"});//Load New York by default initially
 
       var statesArr = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
         'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
@@ -225,9 +252,22 @@ var main = (function(){
         }
       );
 
+      $userGeolocation.addEventListener('click', function(){
+        findUserWithGeolocation();
+      });
+      $userGeolocation.addEventListener('mouseover', function(e){
+        e.currentTarget.classList.add("rubberBand");
+        var $message = $geoLocationContainer.querySelector(".message");
+        $message.classList.add('show');
+      });
+      $userGeolocation.addEventListener('mouseout', function(e){
+        e.currentTarget.classList.remove("rubberBand");
+        var $message = $geoLocationContainer.querySelector(".message");
+        $message.classList.remove('show');
+      });
       $weatherRetriever.addEventListener('click', function(){
 
-        populateWeatherInformation();
+        //populateWeatherInformation();
       });
     }
   };
