@@ -8,14 +8,17 @@ is queried to find the necessary data.
 App is responsive and should expand or contract nicely from mobile to desktop.
 
 To see the weather app running live, please go to:
+
 http://michaellubow.com:8080
 
 To run app simply clone, navigate to the root directory and run:
 
 gulp compile:scssAll
+
 node bin/www.js
 
 Please contact me with any feedback.
 
 Thanks!
+
 -Mike
