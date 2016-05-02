@@ -72,6 +72,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 700px;
   background: radial-gradient(circle at 2.02% 9.01%, #054552, transparent 100%),radial-gradient(circle at 98.13% 87.75%, #030633, transparent 100%),radial-gradient(circle at 69.93% 36.76%, #1fff87, transparent 53%),radial-gradient(circle at 20.49% 80.28%, #fafafa, transparent 100%),radial-gradient(circle at 97.57% 6.48%, rgba(255,255,255,0.5), transparent 100%),radial-gradient(circle at 50% 50%, #e86e79, #e86e79 100%);
   .container {
     max-width: 1400px;
@@ -151,7 +152,7 @@ body {
           position: absolute;
           right: 26.5%;
           top: 35px;
-          background-color: rgba(0, 0, 0, 0.3);
+          background-color: rgba(0, 0, 0, 0.5) !important;
           width: 53px;
           height: 48px;
           border: none;
@@ -160,12 +161,12 @@ body {
           font-size: 1.8em;
           transition: 0.5s background-color;
           &:hover{
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.8) !important;
           }
           @media #{$mobile}{
             position: static;
             float: left;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.4) !important;
             font-size: 25px;
           }
         }
@@ -177,7 +178,7 @@ body {
           font-style: italic;
           margin-top: 20px;
           //margin-right: 20px !important;
-          background-color: rgba(0, 0, 0, 0.3);
+          background-color: rgba(0, 0, 0, 0.3) !important;
           padding-left: 10px;
           padding-right: 10px;
           border: none;
@@ -190,7 +191,7 @@ body {
             width: 100% !important;
             margin-right: 0 !important;
             margin-top: 0;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.2) !important;
             font-size: 25px;
           }
         }
@@ -212,6 +213,9 @@ body {
           margin-right: 10px;
           transform: translateX(50px);
           position: relative;
+          @media #{$mobile}{
+            margin-top: -20px;
+          }
           &.show{
             opacity: 1;
             transform: translateX(0);

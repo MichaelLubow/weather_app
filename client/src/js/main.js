@@ -323,6 +323,7 @@ var main = (function(){
   function typeaheadOnAutoComplete(){
     console.log("typeaheadOnAutoComplete");
     console.log($locationName.value);
+    $typeahead.typeahead('close');
     populateWeatherInformation({cityName: $locationName.value});
   }
 
@@ -348,8 +349,7 @@ var main = (function(){
       var data = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        local: statesArr//weatherApp.cities
-        local: weatherApp.cities /*statesArr,*/
+        local: weatherApp.cities
       });
 
       $typeahead.typeahead({
@@ -372,8 +372,8 @@ var main = (function(){
           async: true
         }
       ).on('typeahead:change', typeaheadOnChange)
-       .on('typeahead:select', typeaheadOnSelect)
-       .on('typeahead:autocompleted', typeaheadOnAutoComplete);
+        .on('typeahead:select', typeaheadOnSelect)
+        .on('typeahead:autocomplete', typeaheadOnAutoComplete);
 
       $userGeolocation.addEventListener('click', function(){
         findUserWithGeolocation();
@@ -392,11 +392,14 @@ var main = (function(){
         console.log($locationName.value);
         populateWeatherInformation({cityName: $locationName.value});
       });
+      $locationName.addEventListener('keypress', function(e){
+        if (e.which === 13) {
+          document.querySelector('.tt-suggestion:first-child').click();
+        }
+      });
     }
   };
-
 })();
-
 
 window.addEventListener('DOMContentLoaded', function(){
   main.init();
