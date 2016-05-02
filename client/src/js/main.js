@@ -342,7 +342,7 @@ var main = (function(){
 
       $typeahead.typeahead({
           minLength: 1,
-          highlight: true,
+          highlight: true
         },
         {
           name: 'cityData',
