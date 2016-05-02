@@ -9,6 +9,7 @@ var main = (function(){
   var $forecast = null;
   var $geoLocationContainer = null;
   var $userGeolocation = null;
+  var $locationName = null;
 
   function cacheDOMSelectors(){
     $typeahead = $('.typeahead');
@@ -18,6 +19,7 @@ var main = (function(){
     $forecast = document.querySelector('.forecast');
     $geoLocationContainer = document.querySelector('.geoLocationContainer');
     $userGeolocation = document.querySelector('.userGeolocation');
+    $locationName = document.querySelector('.locationName');
   }
 
   function findUserWithGeolocation(){
@@ -287,7 +289,14 @@ var main = (function(){
           //push the last entry
           summaryForecastData.push(forecast);
           console.log("summaryForecastData is ", summaryForecastData);
+
+          //ensure we don't have more than 5 days
+          if(summaryForecastData.length > 5){
+            var count = summaryForecastData.length - 5;
+            summaryForecastData.splice(4, count)
+          }
           renderForecastData(summaryForecastData);
+          $locationName.value = data.city.name + ", " + data.city.country;
         })
         .fail(function(error) {
           console.log("error is ", error);
@@ -299,6 +308,22 @@ var main = (function(){
 
     getCurrentWeather();
     getForecast();
+  }
+
+  function typeaheadOnChange(){
+    console.log("typeaheadOnChange");
+  }
+
+  function typeaheadOnSelect(){
+    console.log("typeaheadOnSelect");
+    console.log($locationName.value);
+    populateWeatherInformation({cityName: $locationName.value});
+  }
+
+  function typeaheadOnAutoComplete(){
+    console.log("typeaheadOnAutoComplete");
+    console.log($locationName.value);
+    populateWeatherInformation({cityName: $locationName.value});
   }
 
   return {
@@ -324,6 +349,7 @@ var main = (function(){
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         local: statesArr//weatherApp.cities
+        local: weatherApp.cities /*statesArr,*/
       });
 
       $typeahead.typeahead({
@@ -345,7 +371,9 @@ var main = (function(){
           source: data,
           async: true
         }
-      );
+      ).on('typeahead:change', typeaheadOnChange)
+       .on('typeahead:select', typeaheadOnSelect)
+       .on('typeahead:autocompleted', typeaheadOnAutoComplete);
 
       $userGeolocation.addEventListener('click', function(){
         findUserWithGeolocation();
@@ -361,8 +389,8 @@ var main = (function(){
         $message.classList.remove('show');
       });
       $weatherRetriever.addEventListener('click', function(){
-
-        //populateWeatherInformation();
+        console.log($locationName.value);
+        populateWeatherInformation({cityName: $locationName.value});
       });
     }
   };
