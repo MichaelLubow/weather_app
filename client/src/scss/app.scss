@@ -87,6 +87,8 @@ body {
       height: 75%;
       background-size: cover;
       position: relative;
+      background-blend-mode: soft-light;
+      background-color: #8A8989;
       &.clear{
         background-image: url('/img/clear.jpg');
       }
@@ -94,8 +96,7 @@ body {
         background-image: url('/img/clouds.jpg');
       }
       &.rain{
-        // background-image: url('/img/rain.jpg');
-        background-color: skyblue;
+        background-image: url('/img/rain.jpg');
       }
       &.snow{
         background-image: url('/img/snow.jpg');
@@ -270,14 +271,87 @@ body {
               top: -27%;
               left: 38%;
             }
-            i.wi-day-sunny, i.wi-owm-800{
-              color: #FFF782;
+            i{
+              $rainColor: #8BD1E8;
+              $lightningColor: #EFEF93;
+              $snowColor: white;
+              $hazeColor: #ECEBEB;
+              $sunnyColor: #FFF782;
+              &.wi-own-200, &.wi-own-201, &.wi-own-202, &.wi-own-230, &.wi-own-231, &.wi-own-232{//thunderstorm
+                color: $lightningColor;
+              }
+              &.wi-owm-210, &.wi-owm-211, &.wi-owm-212, &.wi-owm-221{//lightning
+                color: $lightningColor;
+              }
+              &.wi-owm-300, &.wi-owm-301, &.wi-owm-321, &.wi-owm-500{//sprinkle
+                color: $rainColor;
+              }
+              &.wi-owm-302, &.wi-owm-311, &.wi-owm-312, &.wi-owm-314, &.wi-owm-501, &.wi-owm-502, &.wi-owm-503, &.wi-owm-504{//rain
+                color: $rainColor;
+              }
+              &.wi-owm-310, &.wi-owm-511, &.wi-owm-611, &.wi-owm-612, &.wi-owm-615, &.wi-owm-616, &.wi-owm-620{//rain-mix
+                color: $rainColor;
+              }
+              &.wi-owm-313, &.wi-owm-520, &.wi-owm-521, &.wi-owm-522, &.wi-owm-701{//showers
+                color: $rainColor;
+              }
+              &.wi-owm-531, &.wi-owm-901{//storm-showers
+                color: $lightningColor;
+              }
+              &.wi-owm-600, &.wi-owm-601, &.wi-owm-621, &.wi-owm-622{//snow
+                color: $snowColor;
+              }
+              &.wi-owm-602{//sleet
+                color: $snowColor;
+              },
+              &.wi-owm-711{//smoke
+                color: $hazeColor;
+              },
+              &.wi-owm-721{//day-haze
+               color: $hazeColor;
+              }
+              &.wi-owm-731, &.wi-owm-761, &.wi-owm-762{//dust
+                color: $hazeColor;
+              },
+              &.wi-owm-741{//fog
+                color: $hazeColor;
+              }
+              &.wi-owm-771, &.wi-owm-801, &.wi-owm-802, &.wi-owm-803{//cloudy-gusts
+                color: $hazeColor;
+              }
+              &.wi-owm-781, &.wi-owm-900{//tornado
+                color: $hazeColor;
+              }
+              &.wi-owm-800 {//day-sunny
+                color: $sunnyColor;
+              }
+              &.wi-owm-804 {//cloudy
+                color: $hazeColor;
+              }
+              &.wi-owm-902{//hurricane
+                color: $rainColor;
+              }
+              &.wi-owm-903{//snowflake-cold
+                color: $snowColor;
+              }
+              &.wi-owm-904 {//hot
+                color: $sunnyColor;
+              }
+              &.wi-owm-905 {//windy
+                color: $hazeColor;
+              }
+              &.wi-owm-906 {//hail
+                color: $snowColor;
+              }
+              &.wi-owm-957 {//strong-wind
+                color: $hazeColor;
+              }
             }
           }
         }
         .date{
           text-align: center;
-          font-size: 20px;
+          font-size: 22px;
           margin-bottom: 15px;
           @media #{$mobile}{
             margin-left: -5%;
