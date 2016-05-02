@@ -1,7 +1,7 @@
 var main = (function(){
 
   var APP_ID = "6d9001586931106485b0a3b14315adc6";
-  var unit = "imperial"; //or metric
+  var unit = "imperial";
   var $typeahead = null;
   var $imageContainer = null;
   var $weatherRetriever = null;
@@ -331,20 +331,8 @@ var main = (function(){
     init: function init(){
       console.log("main init");
       cacheDOMSelectors();
-      console.log("weatherApp is ", weatherApp);
       setCurrentDate();
       populateWeatherInformation({cityName: "New York, NY"});//Load New York by default initially
-
-      var statesArr = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-      ];
 
       var data = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -355,17 +343,7 @@ var main = (function(){
       $typeahead.typeahead({
           minLength: 1,
           highlight: true,
-          classNames: {
-            //input:"",
-            //hint: "typeaheadHint",
-            //menu: "",
-            //dataset:"",
-            //suggestion:"",
-            //empty:"",
-            //open:"",
-            //cursor:"",
-            //highlight:""
-          }},
+        },
         {
           name: 'cityData',
           source: data,

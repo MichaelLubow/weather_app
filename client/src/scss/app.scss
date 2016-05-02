@@ -79,7 +79,6 @@ body {
     width: 80%;
     height: 80%;
     overflow: auto;
-    //background-color: rgba(255, 255, 255, 0.3);
     background-color: rgba(0, 0, 0, 0.3);
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     .imageContainer{
@@ -178,7 +177,6 @@ body {
           height: 48px;
           font-style: italic;
           margin-top: 20px;
-          //margin-right: 20px !important;
           background-color: rgba(0, 0, 0, 0.3) !important;
           padding-left: 10px;
           padding-right: 10px;
@@ -377,10 +375,8 @@ body {
           justify-content: center;
           align-items: center;
           flex-direction: column;
-          // @include omega();
           height: 100%;
           text-align: center;
-          //border-left: 1px solid white;
           transition: 0.5s transform;
           @media #{$mobile}{
             width: 100%;
