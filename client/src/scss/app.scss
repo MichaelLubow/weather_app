@@ -80,6 +80,9 @@ body {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.3);
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    @media #{$mobileSmall}{
+      height: 90%;
+    }
     .imageContainer{
       @include span-columns(12);
       height: 75%;
@@ -87,6 +90,9 @@ body {
       position: relative;
       background-blend-mode: soft-light;
       background-color: #8A8989;
+      @media #{$mobileSmall}{
+        height: 60%;
+      }
       &.clear{
         background-image: url('/img/clear.jpg');
       }
@@ -182,6 +188,7 @@ body {
           border: none;
           color: white;
           outline: none;
+          border-radius: 0 !important;
           @media #{$mobile}{
             position: relative !important;
             top: 0 !important;
@@ -191,6 +198,9 @@ body {
             margin-top: 0;
             background-color: rgba(0, 0, 0, 0.2) !important;
             font-size: 25px;
+          }
+          @media #{$mobileSmall}{
+            font-size: 22px;
           }
         }
       }
@@ -213,6 +223,9 @@ body {
           position: relative;
           @media #{$mobile}{
             margin-top: -20px;
+          }
+          @media #{$mobileSmall}{
+            display: none;
           }
           &.show{
             opacity: 1;
@@ -253,6 +266,10 @@ body {
               font-size: 10em;
               padding-left: 17%;
             }
+            @media #{$mobileSmall}{
+              font-size: 8em;
+              padding-left: 12%;
+            }
             &::after{
               content: "\00b0";
             }
@@ -268,155 +285,162 @@ body {
               top: -27%;
               left: 38%;
             }
-            i{
-              $rainColor: #8BD1E8;
-              $lightningColor: #EFEF93;
-              $snowColor: white;
-              $hazeColor: #ECEBEB;
-              $sunnyColor: #FFF782;
-              &.wi-own-200, &.wi-own-201, &.wi-own-202, &.wi-own-230, &.wi-own-231, &.wi-own-232{//thunderstorm
-                color: $lightningColor;
-              }
-              &.wi-owm-210, &.wi-owm-211, &.wi-owm-212, &.wi-owm-221{//lightning
-                color: $lightningColor;
-              }
-              &.wi-owm-300, &.wi-owm-301, &.wi-owm-321, &.wi-owm-500{//sprinkle
-                color: $rainColor;
-              }
-              &.wi-owm-302, &.wi-owm-311, &.wi-owm-312, &.wi-owm-314, &.wi-owm-501, &.wi-owm-502, &.wi-owm-503, &.wi-owm-504{//rain
-                color: $rainColor;
-              }
-              &.wi-owm-310, &.wi-owm-511, &.wi-owm-611, &.wi-owm-612, &.wi-owm-615, &.wi-owm-616, &.wi-owm-620{//rain-mix
-                color: $rainColor;
-              }
-              &.wi-owm-313, &.wi-owm-520, &.wi-owm-521, &.wi-owm-522, &.wi-owm-701{//showers
-                color: $rainColor;
-              }
-              &.wi-owm-531, &.wi-owm-901{//storm-showers
-                color: $lightningColor;
-              }
-              &.wi-owm-600, &.wi-owm-601, &.wi-owm-621, &.wi-owm-622{//snow
-                color: $snowColor;
-              }
-              &.wi-owm-602{//sleet
-                color: $snowColor;
-              },
+            @media #{$mobileSmall}{
+              top: -33%;
+              left: 33%;
+            }
+
+
+              i{
+                $rainColor: #8BD1E8;
+                $lightningColor: #EFEF93;
+                $snowColor: white;
+                $hazeColor: #ECEBEB;
+                $sunnyColor: #FFF782;
+                &.wi-own-200, &.wi-own-201, &.wi-own-202, &.wi-own-230, &.wi-own-231, &.wi-own-232{//thunderstorm
+                  color: $lightningColor;
+                }
+                &.wi-owm-210, &.wi-owm-211, &.wi-owm-212, &.wi-owm-221{//lightning
+                  color: $lightningColor;
+                }
+                &.wi-owm-300, &.wi-owm-301, &.wi-owm-321, &.wi-owm-500{//sprinkle
+                  color: $rainColor;
+                }
+                &.wi-owm-302, &.wi-owm-311, &.wi-owm-312, &.wi-owm-314, &.wi-owm-501, &.wi-owm-502, &.wi-owm-503, &.wi-owm-504{//rain
+                  color: $rainColor;
+                }
+                &.wi-owm-310, &.wi-owm-511, &.wi-owm-611, &.wi-owm-612, &.wi-owm-615, &.wi-owm-616, &.wi-owm-620{//rain-mix
+                  color: $rainColor;
+                }
+                &.wi-owm-313, &.wi-owm-520, &.wi-owm-521, &.wi-owm-522, &.wi-owm-701{//showers
+                  color: $rainColor;
+                }
+                &.wi-owm-531, &.wi-owm-901{//storm-showers
+                  color: $lightningColor;
+                }
+                &.wi-owm-600, &.wi-owm-601, &.wi-owm-621, &.wi-owm-622{//snow
+                  color: $snowColor;
+                }
+                &.wi-owm-602{//sleet
+                  color: $snowColor;
+                },
               &.wi-owm-711{//smoke
                 color: $hazeColor;
               },
               &.wi-owm-721{//day-haze
-               color: $hazeColor;
-              }
-              &.wi-owm-731, &.wi-owm-761, &.wi-owm-762{//dust
                 color: $hazeColor;
-              },
+              }
+                &.wi-owm-731, &.wi-owm-761, &.wi-owm-762{//dust
+                  color: $hazeColor;
+                },
               &.wi-owm-741{//fog
                 color: $hazeColor;
               }
-              &.wi-owm-771, &.wi-owm-801, &.wi-owm-802, &.wi-owm-803{//cloudy-gusts
-                color: $hazeColor;
-              }
-              &.wi-owm-781, &.wi-owm-900{//tornado
-                color: $hazeColor;
-              }
-              &.wi-owm-800 {//day-sunny
-                color: $sunnyColor;
-              }
-              &.wi-owm-804 {//cloudy
-                color: $hazeColor;
-              }
-              &.wi-owm-902{//hurricane
-                color: $rainColor;
-              }
-              &.wi-owm-903{//snowflake-cold
-                color: $snowColor;
-              }
-              &.wi-owm-904 {//hot
-                color: $sunnyColor;
-              }
-              &.wi-owm-905 {//windy
-                color: $hazeColor;
-              }
-              &.wi-owm-906 {//hail
-                color: $snowColor;
-              }
-              &.wi-owm-957 {//strong-wind
-                color: $hazeColor;
+                &.wi-owm-771, &.wi-owm-801, &.wi-owm-802, &.wi-owm-803{//cloudy-gusts
+                  color: $hazeColor;
+                }
+                &.wi-owm-781, &.wi-owm-900{//tornado
+                  color: $hazeColor;
+                }
+                &.wi-owm-800 {//day-sunny
+                  color: $sunnyColor;
+                }
+                &.wi-owm-804 {//cloudy
+                  color: $hazeColor;
+                }
+                &.wi-owm-902{//hurricane
+                  color: $rainColor;
+                }
+                &.wi-owm-903{//snowflake-cold
+                  color: $snowColor;
+                }
+                &.wi-owm-904 {//hot
+                  color: $sunnyColor;
+                }
+                &.wi-owm-905 {//windy
+                  color: $hazeColor;
+                }
+                &.wi-owm-906 {//hail
+                  color: $snowColor;
+                }
+                &.wi-owm-957 {//strong-wind
+                  color: $hazeColor;
+                }
               }
             }
           }
-        }
-        .date{
-          text-align: center;
-          font-size: 22px;
-          margin-bottom: 15px;
-          @media #{$mobile}{
-            margin-left: -5%;
-            margin-top: 7%;
+          .date{
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            @media #{$mobile}{
+              margin-left: -5%;
+              margin-top: 7%;
+            }
           }
         }
       }
-    }
-    .weatherInfo{
-      @include span-columns(12);
-      height: 25%;
-      padding: 15px;
-      @media #{$mobile}{
-        height: auto;
-      }
-      .forecast{
-        @include span-columns(12 of 12);
-        height: 100%;
-        .dayForecast{
-          @include span-columns(2.4 of 12);
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
+      .weatherInfo{
+        @include span-columns(12);
+        height: 25%;
+        padding: 15px;
+        @media #{$mobile}{
+          height: auto;
+        }
+        .forecast{
+          @include span-columns(12 of 12);
           height: 100%;
-          text-align: center;
-          transition: 0.5s transform;
-          @media #{$mobile}{
-            width: 100%;
-            flex-direction: row;
-            height: 50px;
-          }
-          &:hover{
-            transform: scale(1.1);
+          .dayForecast{
+            @include span-columns(2.4 of 12);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            text-align: center;
+            transition: 0.5s transform;
             @media #{$mobile}{
-              transform: scale(1);
+              width: 100%;
+              flex-direction: row;
+              height: 50px;
             }
-          }
-          .day{
-            @media #{$mobile}{
-              margin-right: 10px;
-            }
-          }
-          .icon{
-            font-size: 2em;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            @media #{$mobile}{
-              margin-top: 0;
-              margin-bottom: 0;
-              margin-right: 10px;
-            }
-          }
-          .temp{
-            font-size: 1.2em;
-            .max{
-              &::after{
-                content: "\00b0";
+            &:hover{
+              transform: scale(1.1);
+              @media #{$mobile}{
+                transform: scale(1);
               }
             }
-            .divider{
-              margin-left: 5px;
-              margin-right: 5px;
+            .day{
+              @media #{$mobile}{
+                margin-right: 10px;
+              }
             }
-            .min{
-              &::after{
-                content: "\00b0";
+            .icon{
+              font-size: 2em;
+              margin-top: 10px;
+              margin-bottom: 10px;
+              @media #{$mobile}{
+                margin-top: 0;
+                margin-bottom: 0;
+                margin-right: 10px;
+              }
+            }
+            .temp{
+              font-size: 1.2em;
+              .max{
+                &::after{
+                  content: "\00b0";
+                }
+              }
+              .divider{
+                margin-left: 5px;
+                margin-right: 5px;
+              }
+              .min{
+                &::after{
+                  content: "\00b0";
+                }
               }
             }
           }
@@ -424,4 +448,3 @@ body {
       }
     }
   }
-}
