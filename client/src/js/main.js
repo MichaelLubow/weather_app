@@ -247,7 +247,10 @@ var main = (function(){
           var todayDate = new Date().getDate();
 
           data.list.forEach(function(weatherReading) {
-            weatherReadingDate = new Date(weatherReading.dt_txt);
+            console.log("datestring ", weatherReading.dt_txt);
+            var matches = weatherReading.dt_txt.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/);
+            console.log("matches ", matches);
+            weatherReadingDate =  new Date(matches[1], matches[2]-1, matches[3], matches[4], matches[5], matches[6]);
             var date = weatherReadingDate.getDate();
             console.log("date is ", date);
 
