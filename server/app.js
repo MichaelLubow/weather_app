@@ -14,7 +14,7 @@ var router = require('./router');
 
 var app = express();
 
-var authentication = require('./authentication');
+//var authentication = require('./authentication');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
