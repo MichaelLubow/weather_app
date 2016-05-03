@@ -32,6 +32,7 @@
 
 html {
   box-sizing: border-box;
+  background: radial-gradient(circle at 2.02% 9.01%, #054552, transparent 100%),radial-gradient(circle at 98.13% 87.75%, #030633, transparent 100%),radial-gradient(circle at 69.93% 36.76%, #1fff87, transparent 53%),radial-gradient(circle at 20.49% 80.28%, #fafafa, transparent 100%),radial-gradient(circle at 97.57% 6.48%, rgba(255,255,255,0.5), transparent 100%),radial-gradient(circle at 50% 50%, #e86e79, #e86e79 100%);
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -67,13 +68,11 @@ body:before {
     content: "desktop";
   }
 }
-
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 700px;
-  background: radial-gradient(circle at 2.02% 9.01%, #054552, transparent 100%),radial-gradient(circle at 98.13% 87.75%, #030633, transparent 100%),radial-gradient(circle at 69.93% 36.76%, #1fff87, transparent 53%),radial-gradient(circle at 20.49% 80.28%, #fafafa, transparent 100%),radial-gradient(circle at 97.57% 6.48%, rgba(255,255,255,0.5), transparent 100%),radial-gradient(circle at 50% 50%, #e86e79, #e86e79 100%);
   .container {
     max-width: 1400px;
     width: 80%;
